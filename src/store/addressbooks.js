@@ -35,7 +35,8 @@ const addressbookModel = {
 	owner: '',
 	shares: [],
 	contacts: {},
-	url: ''
+	url: '',
+	readOnly: false
 }
 
 const state = {
@@ -182,9 +183,7 @@ const mutations = {
 				}
 			}
 		})
-		console.log(addressbook) // eslint-disable-line
 		sharee = addressbook.shares.find(search => search === sharee)
-		console.log(sharee) // eslint-disable-line
 		sharee.writeable = !sharee.writeable
 	}
 
@@ -208,14 +207,18 @@ const actions = {
 			id: 'ab1',
 			displayName: 'Addressbook 1',
 			enabled: true,
-			owner: 'admin'
+			owner: 'admin',
+			url: '/remote.php/dav/ab1',
 			// dav: addressbook
+			readOnly: false
 		}, {
 			id: 'ab2',
 			displayName: 'Addressbook 2',
 			enabled: true,
-			owner: 'admin'
+			owner: 'admin',
+			url: '/remote.php/dav/ab2',
 			// dav: addressbook
+			readOnly: true
 		}]
 		// })
 
@@ -227,7 +230,45 @@ const actions = {
 	},
 
 	/**
-	 * Retrieve the contacts for the specified address book
+	 * Append a new address book to array of existing address books
+	 *
+	 * @param {Object} context
+	 * @param {Object} addressbook The address book to append
+	 */
+	appendAddressbook(context, addressbook) {
+		context.commit('addAddressbooks', addressbook)
+	},
+
+	/**
+	 * Delete Addressbook
+	 * @param {Object} context Current context
+	 * @param {Object} addressbook
+	 */
+	deleteAddressbook(context, addressbook) {
+		context.commit('deleteAddressbook', addressbook)
+	},
+
+	/**
+	 * Toggle whether a Addressbook is Enabled
+	 * @param {Object} context Current context
+	 * @param {Object} addressbook
+	 */
+	toggleAddressbookEnabled(context, addressbook) {
+		context.commit('toggleAddressbookEnabled', addressbook)
+	},
+
+	/**
+	 * Rename a Addressbook
+	 * @param {Object} context Current context
+	 * @param {Object} data.addressbook
+	 * @param {String} data.newName
+	 */
+	renameAddressbook(context, { addressbook, newName }) {
+		context.commit('renameAddressbook', { addressbook, newName })
+	},
+
+	/**
+	 * Retrieve the contacts of the specified addressbook
 	 * and commit the results
 	 *
 	 * @param {Object} context
