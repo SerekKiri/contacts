@@ -44,6 +44,10 @@
 				<contact-avatar :contact="contact" />
 				<!-- QUESTION: is it better to pass contact as a prop or get it from the store inside
 				contact-avatar ?  :avatar="contact.photo"-->
+				<!-- temporary popover menu for the purpose of testing methods (WIP, to be deleted) -->
+				<div :class="{open: true}" class="popovermenu">
+					<popover-menu :menu="menu" />
+				</div>
 
 				<!-- fullname, org, title -->
 				<div id="contact-header-infos">
@@ -237,6 +241,23 @@ export default {
 				localContact.updateContact(contact.jCal)
 				return localContact
 			}
+		},
+
+		// building the popover menu for the avatar (WIP, to be deleted)
+		menu() {
+			let menu = [
+				{
+					icon: 'icon-download',
+					text: t('contacts', 'Download')
+					// action: this.deleteContact
+				},
+				{
+					icon: 'icon-delete',
+					text: t('contacts', 'Delete')
+					// action: this.deleteContact
+				}
+			]
+			return menu
 		}
 	},
 

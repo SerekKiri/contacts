@@ -25,8 +25,7 @@ import rfcProps from '../../models/rfcProps';
 	<div id="contact-header-avatar" :class="{'maximised':maximizeAvatar }">
 		<div class="contact-avatar-background" />
 		<img v-if="contact.photo" :src="contact.photo"
-			class="contact-header-avatar__picture"
-			@click="maximise">
+			class="contact-header-avatar__picture">
 		<div class="avatar-options">
 			<input id="contact-avatar-upload" type="file" class="hidden"
 				accept="image/*" @change="processFile">
@@ -37,6 +36,8 @@ import rfcProps from '../../models/rfcProps';
 		</div>
 	</div>
 </template>
+// TODO: add back @click="maximise" to img tag
+// delete the new code in ContactDetails tagged with WIP, to be deleted
 
 <script>
 
@@ -68,7 +69,7 @@ export default {
 		},
 		toggleSize() {
 			// maximise avatar photo
-			this.maximizeAvatar != this.maximizeAvatar
+			this.maximizeAvatar = !this.maximizeAvatar
 		},
 		removePhoto() {
 			// self.contact.vCard.removePropertyWithValue('photo', reader.result)
