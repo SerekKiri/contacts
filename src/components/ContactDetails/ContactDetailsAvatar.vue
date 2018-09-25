@@ -62,7 +62,9 @@ export default {
 			let self = this
 			// need if contact.photo to check if already there, if it is use updatePropertyWithValue
 			reader.onload = function(e) {
-				self.contact.vCard.addPropertyWithValue('photo', reader.result)
+				if (!self.contact.photo) {
+					self.contact.vCard.addPropertyWithValue('photo', reader.result)
+				}
 				self.$store.dispatch('updateContact', self.contact)
 			}
 			reader.readAsDataURL(file)

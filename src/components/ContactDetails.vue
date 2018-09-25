@@ -248,13 +248,18 @@ export default {
 			let menu = [
 				{
 					icon: 'icon-download',
-					text: t('contacts', 'Download')
-					// action: this.deleteContact
+					text: t('contacts', 'Download'),
+					action: this.downloadPhoto
 				},
 				{
 					icon: 'icon-delete',
-					text: t('contacts', 'Delete')
-					// action: this.deleteContact
+					text: t('contacts', 'Delete'),
+					action: this.removePhoto
+				},
+				{
+					icon: 'icon-upload',
+					text: t('contacts', 'Upload'),
+					action: this.uploadPhoto
 				}
 			]
 			return menu
@@ -315,6 +320,28 @@ export default {
 						this.updateContact()
 					})
 			}
+		},
+
+		// (WIP, to be deleted) -->
+		removePhoto() {
+			alert('remove')
+		},
+		downloadPhoto() {
+			alert('download')
+		},
+		uploadPhoto(event) {
+			alert('upload')
+			// let file = event.target.files[0]
+			// let reader = new FileReader()
+			// let self = this
+			// // need if contact.photo to check if already there, if it is use updatePropertyWithValue
+			// reader.onload = function(e) {
+			// 	if (!self.contact.photo) {
+			// 		self.contact.vCard.addPropertyWithValue('photo', reader.result)
+			// 	}
+			// 	self.$store.dispatch('updateContact', self.contact)
+			// }
+			// reader.readAsDataURL(file)
 		}
 	}
 }
